@@ -30,6 +30,7 @@ export default {
       'boxPleat',
       'backDarts',
       'frontDarts',
+      'frenchDarts',
       'contour',
       {
         closure: [
