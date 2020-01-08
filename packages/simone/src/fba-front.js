@@ -60,19 +60,39 @@ export default part => {
    */
   points.realBustPoint = points.bust.clone()
   points.bust = points.bust.rotate(FBARot * -1, points.armholePitch)
+  
+  //determine which method to use for drafting the dart
 
-  //
-  // Cut to the side seam
-  //
-  points._dartDirection = points.bust.shift(options.bustDartAngle * -1, measurements.bust / 4)
-  points.bustSideCut1 = utils.lineIntersectsCurve(
-    points.bust,
-    points._dartDirection,
-    points.waist,
-    points.waistCp2,
-    points.armhole,
-    points.armhole
-  )
+  if (options.dartType = french) {
+    // calculate angle for the french dart
+    // this method is used to allow the dart legs to be pushed up or down based on the bustDartAngle option
+    busttowaistangle = angle(points.bust, points.waist) + options.bustDartAngle
+
+    // cut to the waist for french dart
+
+    points._dartDirection = points.bust.shift(busttowaistangle , measurements.bust / 4)
+    points.bustSideCut1 = utils.lineIntersectsCurve(
+      points.bust,
+      points._dartDirection,
+      points.waist,
+      points.waistCp2,
+      points.armhole,
+      points.armhole
+    )
+  } else {
+    //
+    // Cut to the side seam
+    //
+    points._dartDirection = points.bust.shift(options.bustDartAngle * -1, measurements.bust / 4)
+    points.bustSideCut1 = utils.lineIntersectsCurve(
+      points.bust,
+      points._dartDirection,
+      points.waist,
+      points.waistCp2,
+      points.armhole,
+      points.armhole
+    )
+  }
 
   //
   // Mark bust at waist and hem level
